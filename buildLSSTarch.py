@@ -94,16 +94,16 @@ if __name__ == "__main__":
 #
 # AO Closed Loop Controller
 #
-    dot=bcsc.addCSC(dot, 'AOCLC', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atHeaderService','Code repo:  https://github.com/lsst-dm/HeaderService','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented=False)
+    dot=bcsc.addCSC(dot, 'AOCLC', ['XML repo: ?','Code repo: ?','ICD: ?','CSC generic cmds'], implemented=False)
 #
 # tcsWEP
 #
-    dot=bcsc.addCSC(dot, 'tcsWEP', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], implemented='IP')
+    dot=bcsc.addCSC(dot, 'tcsWEP', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/develop/sal_interfaces/tcsWEP','Code repo: https://github.com/lsst-ts/ts_tcs_wep','ICD: https://ls.st/LSE-67','ICD: https://ls.st/LTS-163','CSC generic cmds'], implemented='IP')
     dot=bcsc.addSubHW(dot, 'DAQ', ['WEP_Server_HW'], ['DAQ'])
 #
 # tcsOFC
 #
-    dot=bcsc.addCSC(dot, 'tcsOFC',  ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], implemented='IP')
+    dot=bcsc.addCSC(dot, 'tcsOFC',  ['XML repo: https://github.com/lsst-ts/ts_xml/tree/develop/sal_interfaces/tcsOfc','Code repo: https://github.com/lsst-ts/ts_tcs_ofc','ICD: https://ls.st/LTS-163','CSC generic cmds'], implemented='IP')
     
 #
 # headerService
