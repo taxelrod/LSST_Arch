@@ -119,11 +119,21 @@ if __name__ == "__main__":
 # catchupArchiver
 #
     dot=bcsc.addCSC(dot, 'catchupArchiver', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='DM')
-#    dot=bcsc.addSubHW(dot, 'catchupArchiver', ['archiver_HW'], ['catchupArchiver'])
+#
+# OCS_DrivenBatch
+#
+    dot=bcsc.addHWCSC(dot, 'OCS_DrivenBatch', 'DataBackbone', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], ['DM_Data_Backbone'], implemented='DM')
+
+#
+# EFD_TransformationService
+#
+    dot=bcsc.addCSC(dot, 'EFD_TransformationService', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], implemented='DM')
+
 #
 # CCS
 #
     dot=bcsc.addSubHW(dot, 'DAQ', ['archiver_HW'], ['DAQ'])
+    dot=bcsc.addSubHW(dot, 'DataBackbone', ['archiver_HW'], ['DataBackbone'])
     
 #
 # tcs
@@ -203,8 +213,10 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'OCS',  'ECS' )
     dot=bcsc.connectCSCs(dot, 'OCS',  'EMCS' )
     dot=bcsc.connectCSCs(dot, 'OCS',  'LOVE' )
-    dot=bcsc.connectCSCs(dot, 'OCS',  'EFD_SciencePlatform' )
-    dot=bcsc.connectCSCs(dot, 'catchupArchiver', 'archiver_HW')
+    dot=bcsc.connectCSCs(dot, 'OCS',  'OCS_DrivenBatch' )
+    dot=bcsc.connectCSCs(dot, 'OCS',  'EFD_TransformationService' )
+    dot=bcsc.connectCSCs(dot, 'EFD_TransformationService', 'DataBackbone', attrs='penwidth="3"')
+    dot=bcsc.connectCSCs(dot, 'catchupArchiver', 'archiver_HW', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'camera', 'CCS_OCS_Bridge')
     dot=bcsc.connectCSCs(dot, 'IOTA', 'WEP_Server')
 
