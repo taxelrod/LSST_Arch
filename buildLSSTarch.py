@@ -22,7 +22,21 @@ if __name__ == "__main__":
 #
 # Dome
 #
-    dot=bcsc.addHWCSC(dot, 'Dome', 'Dome_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtDome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'CSC generic cmds', 'Crawl', 'Move','Park','SetLouvers','CloseShutter','OpenShutter','StopShutter'], ['Dome'], implemented=False)
+    dot=bcsc.addCSC(dot, 'dome', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds', 'Crawl', 'Move','Park','SetLouvers','CloseShutter','OpenShutter','StopShutter'],  implemented='DM')
+#
+    dot=bcsc.addHWCSC(dot, 'domeLWS', 'Dome_RotatingHW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'], ['Dome Rotating Part cRIO'], implemented='DM')
+#
+    dot=bcsc.addHWCSC(dot, 'domeADB', 'Dome_FixedHW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'], ['Dome Fixed Part cRIO'], implemented='DM')
+#
+    dot=bcsc.addCSC(dot, 'domeTHCS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+#
+    dot=bcsc.addCSC(dot, 'domeMONCS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+#
+    dot=bcsc.addCSC(dot, 'domeAPS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+#
+    dot=bcsc.addCSC(dot, 'domeLouvers', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+#
+    dot=bcsc.addCSC(dot, 'domeTrajectory', ['XML repo: ?','Code repo:  ?','ICD: ?', 'CSC generic cmds'],  implemented=False)
 #
 # m1m3
 #
@@ -173,11 +187,12 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'TCS',  'IOTA' )
     dot=bcsc.connectCSCs(dot, 'TCS',  'PointingComponent' )
     dot=bcsc.connectCSCs(dot, 'TCS',  'hexapod' )
-    dot=bcsc.connectCSCs(dot, 'TCS',  'Dome' )
+    dot=bcsc.connectCSCs(dot, 'TCS',  'dome' )
     dot=bcsc.connectCSCs(dot, 'TCS',  'LaserTracker' )
     dot=bcsc.connectCSCs(dot, 'TCS',  'Guider' )
     dot=bcsc.connectCSCs(dot, 'TCS',  'm1m3' )
-    dot=bcsc.connectCSCs(dot, 'TCS',  'm2ms' )
+    dot=bcsc.connectCSCs(dot, 'TCS',  'domeTrajectory' )
+    dot=bcsc.connectCSCs(dot, 'domeTrajectory', 'dome' )
     dot=bcsc.connectCSCs(dot, 'tcsOFC',  'hexapod' )
     dot=bcsc.connectCSCs(dot, 'tcsOFC',  'm1m3' )
     dot=bcsc.connectCSCs(dot, 'tcsOFC',  'm2ms' )
@@ -191,7 +206,6 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'AOCLC', 'tcsOFC')
     dot=bcsc.connectCSCs(dot, 'PointingComponent', 'MTMount')
     dot=bcsc.connectCSCs(dot, 'PointingComponent', 'Rotator')
-    dot=bcsc.connectCSCs(dot, 'TCS', 'm1m3')
     dot=bcsc.connectCSCs(dot, 'OCS', 'TCS')
     dot=bcsc.connectCSCs(dot, 'OCS', 'scheduler')
     dot=bcsc.connectCSCs(dot, 'OCS', 'headerService')
@@ -211,6 +225,17 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'tcsWEP', 'IOTA_HW', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'archiver_HW', 'DAQ', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'CCS', 'DAQ', attrs='penwidth="3"')
+
+    dot=bcsc.connectCSCs(dot, 'dome', 'domeADB')
+    dot=bcsc.connectCSCs(dot, 'dome', 'domeMONCS')
+    dot=bcsc.connectCSCs(dot, 'dome', 'domeAPS')
+    dot=bcsc.connectCSCs(dot, 'dome', 'domeLWS')
+    dot=bcsc.connectCSCs(dot, 'dome', 'domeTHCS')
+    dot=bcsc.connectCSCs(dot, 'dome', 'domeLouvers')
+    dot=bcsc.connectCSCs(dot, 'domeAPS', 'Dome_RotatingHW', attrs='penwidth="3"')
+    dot=bcsc.connectCSCs(dot, 'domeMONCS', 'Dome_RotatingHW', attrs='penwidth="3"')
+    dot=bcsc.connectCSCs(dot, 'domeLouvers', 'Dome_RotatingHW', attrs='penwidth="3"')
+    dot=bcsc.connectCSCs(dot, 'domeTHCS', 'Dome_FixedHW', attrs='penwidth="3"')
 
     dot=bcsc.connectCSCs(dot, 'LEGEND', 'OCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
     dot=bcsc.connectCSCs(dot, 'LEGEND', 'TCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
