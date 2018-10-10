@@ -32,12 +32,6 @@ if __name__ == "__main__":
 # - note connects to tcsWEP
 #
     dot=bcsc.addHWCSC(dot, 'IOTA', 'IOTA_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['High Speed CMOS Camera', 'SHWFS' ], implemented=False)
-#
-# WEP_Server
-#
-    dot=bcsc.addHWCSC(dot, 'WEP_Server', 'WEP_Server_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['Data Processor', 'Storage'], implemented=False)
-
-#    dot=bcsc.addSubHW(dot, 'WEP_Server_HW', ['IOTA'], ['WEP_Server_HW'])
 
 #
 # laser tracker
@@ -48,7 +42,7 @@ if __name__ == "__main__":
 # guider
 #
     dot=bcsc.addCSC(dot, 'Guider', ['XML repo: ?','Code repo: ?','ICD: ?','CSC generic cmds'], implemented=False)
-    dot=bcsc.addSubHW(dot, 'DAQ', ['Guider'], ['DAQ'])
+    dot=bcsc.addSubHW(dot, 'DAQ', ['Guider'], ['DAQ_HW', 'TCS_Network', 'OCS_Network', 'CCS_Network'])
 
 #
 # CalCS
@@ -99,7 +93,6 @@ if __name__ == "__main__":
 # tcsWEP
 #
     dot=bcsc.addCSC(dot, 'tcsWEP', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/develop/sal_interfaces/tcsWEP','Code repo: https://github.com/lsst-ts/ts_tcs_wep','ICD: https://ls.st/LSE-67','ICD: https://ls.st/LTS-163','CSC generic cmds'], implemented='IP')
-    dot=bcsc.addSubHW(dot, 'DAQ', ['WEP_Server_HW'], ['DAQ'])
 #
 # tcsOFC
 #
@@ -132,7 +125,6 @@ if __name__ == "__main__":
 #
 # CCS
 #
-    dot=bcsc.addSubHW(dot, 'DAQ', ['archiver_HW'], ['DAQ'])
     dot=bcsc.addSubHW(dot, 'DataBackbone', ['archiver_HW'], ['DataBackbone'])
     
 #
@@ -154,7 +146,6 @@ if __name__ == "__main__":
 # CCS_OCS_Bridge
 #
     dot=bcsc.addHWCSC(dot, 'CCS_OCS_Bridge', 'CCS', ['XML repo: ?','Code repo: ?','ICD: ?','cmds??'], ['CCS'], implemented=True)
-    dot=bcsc.addSubHW(dot, 'DAQ', ['CCS'], ['DAQ'])
 
 #
 # OCS
@@ -187,11 +178,9 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'TCS',  'Guider' )
     dot=bcsc.connectCSCs(dot, 'TCS',  'm1m3' )
     dot=bcsc.connectCSCs(dot, 'TCS',  'm2ms' )
-    dot=bcsc.connectCSCs(dot, 'tcsWEP',  'WEP_Server' )
     dot=bcsc.connectCSCs(dot, 'tcsOFC',  'hexapod' )
     dot=bcsc.connectCSCs(dot, 'tcsOFC',  'm1m3' )
     dot=bcsc.connectCSCs(dot, 'tcsOFC',  'm2ms' )
-    dot=bcsc.connectCSCs(dot, 'IOTA', 'tcsWEP')
     dot=bcsc.connectCSCs(dot, 'CalCS', 'TunableLaser')
     dot=bcsc.connectCSCs(dot, 'CalCS', 'WhiteLightSource')
     dot=bcsc.connectCSCs(dot, 'CalCS', 'PhotoDiodes')
@@ -218,10 +207,13 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'EFD_TransformationService', 'DataBackbone', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'catchupArchiver', 'archiver_HW', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'camera', 'CCS_OCS_Bridge')
-    dot=bcsc.connectCSCs(dot, 'IOTA', 'WEP_Server')
+    dot=bcsc.connectCSCs(dot, 'tcsWEP', 'DAQ', attrs='penwidth="3"')
+    dot=bcsc.connectCSCs(dot, 'tcsWEP', 'IOTA_HW', attrs='penwidth="3"')
+    dot=bcsc.connectCSCs(dot, 'archiver_HW', 'DAQ', attrs='penwidth="3"')
+    dot=bcsc.connectCSCs(dot, 'CCS', 'DAQ', attrs='penwidth="3"')
 
-    dot=bcsc.connectCSCs(dot, 'LEGEND', 'OCS', 'penwidth=\"0\", arrowhead=\"none\"')
-    dot=bcsc.connectCSCs(dot, 'LEGEND', 'TCS', 'penwidth=\"0\", arrowhead=\"none\"')
+    dot=bcsc.connectCSCs(dot, 'LEGEND', 'OCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
+    dot=bcsc.connectCSCs(dot, 'LEGEND', 'TCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
 
     dot=bcsc.finishDot(dot)
     f=open(outFileName,'w')
