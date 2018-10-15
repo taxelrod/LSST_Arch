@@ -7,34 +7,36 @@ if __name__ == "__main__":
 
     outFileName = sys.argv[1]
     
-    dot=bcsc.startDot('Main\ Telescope\ Architecture\ V1\ Sep\ 13,\ 2018')
+    dot=bcsc.startDot('Main\ Telescope\ Architecture\ V2\ Oct\ 11,\ 2018')
 
 #
 # MTMount
 #
-    dot=bcsc.addHWCSC(dot, 'MTMount', 'MTMount_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtMCS', 'Code repo:  ?','ICD:  https://ls.st/LTS-159?',  'ICD_differs_for_AT??', 'CSC generic cmds' ,'startTracking', 'trackTarget', 'stopTracking', 'setInstrumentPort'], ['MTMount'], implemented=False)
+    MCS_cmds = ['moveToTarget','trackTarget', 'enableCamWrap', 'disableCamWrap', 'openMirrorCover', 'closeMirrorCover', 'stopMount']
+    dot=bcsc.addHWCSC(dot, 'MTMount', 'MCS_HW', ['Vendor: Tekniker', 'XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtMCS', 'Code repo:  ?','ICD:  https://ls.st/LTS-159?', 'CSC generic cmds'] + MCS_cmds, ['MCS'], implemented='Vendor')
     
 #
 # hexapod
 #
-    dot=bcsc.addHWCSC(dot, 'hexapod', 'Hexapod_HW', ['XML repo: ?','Code repo: https://github.com/lsst-ts/ts_atm2hexapod','ICD: ?', 'CSC generic cmds'], ['M2 Hexapod', 'Camera Hexapod'], implemented=False)
+    hexCmds=['Move', 'MoveLUT', 'Pivot', 'Offset', 'Stop', 'PositionSet', 'ConfigureLimits', 'ConfigureVelocity', 'ConfigureAcceleration', 'ConfigureElevationRawLUT', 'ConfigureAzimuthRawLUT', 'ConfigureTemperatureRawLUT']
+    dot=bcsc.addHWCSC(dot, 'hexapod', 'Hexapod_HW', ['Vendor: Moog', 'XML repo: ?','Code repo: https://github.com/lsst-ts/ts_atm2hexapod','ICD: LTS-160', 'CSC generic cmds'] + hexCmds, ['M2 Hexapod', 'Camera Hexapod'], implemented='Vendor')
     
 #
 # Dome
 #
-    dot=bcsc.addCSC(dot, 'dome', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds', 'Crawl', 'Move','Park','SetLouvers','CloseShutter','OpenShutter','StopShutter'],  implemented='DM')
+    dot=bcsc.addCSC(dot, 'dome', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds', 'Crawl', 'Move','Park','SetLouvers','CloseShutter','OpenShutter','StopShutter'],  implemented='Vendor')
 #
-    dot=bcsc.addHWCSC(dot, 'domeLWS', 'Dome_RotatingHW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'], ['Dome Rotating Part cRIO'], implemented='DM')
+    dot=bcsc.addHWCSC(dot, 'domeLWS', 'Dome_RotatingHW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'], ['Dome Rotating Part cRIO'], implemented='Vendor')
 #
-    dot=bcsc.addHWCSC(dot, 'domeADB', 'Dome_FixedHW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'], ['Dome Fixed Part cRIO'], implemented='DM')
+    dot=bcsc.addHWCSC(dot, 'domeADB', 'Dome_FixedHW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'], ['Dome Fixed Part cRIO'], implemented='Vendor')
 #
-    dot=bcsc.addCSC(dot, 'domeTHCS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+    dot=bcsc.addCSC(dot, 'domeTHCS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='Vendor')
 #
-    dot=bcsc.addCSC(dot, 'domeMONCS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+    dot=bcsc.addCSC(dot, 'domeMONCS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='Vendor')
 #
-    dot=bcsc.addCSC(dot, 'domeAPS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+    dot=bcsc.addCSC(dot, 'domeAPS', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='Vendor')
 #
-    dot=bcsc.addCSC(dot, 'domeLouvers', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='DM')
+    dot=bcsc.addCSC(dot, 'domeLouvers', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/master/sal_interfaces/dome','Code repo:  ?','ICD: https://ls.st/LTS-158', 'Vendor: EIE', 'CSC generic cmds'],  implemented='Vendor')
 #
     dot=bcsc.addCSC(dot, 'domeTrajectory', ['XML repo: ?','Code repo:  ?','ICD: ?', 'CSC generic cmds'],  implemented=False)
 #
@@ -79,7 +81,8 @@ if __name__ == "__main__":
 #
 # m2ms
 #
-    dot=bcsc.addHWCSC(dot, 'm2ms', 'm2_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['m2_controller'], implemented=False)
+    m2Cmds = ['ApplyForces', 'PositionMirror']
+    dot=bcsc.addHWCSC(dot, 'm2ms', 'm2_HW', ['Vendor: Harris','XML repo: ?','Code repo:  ?','ICD: LTS-162, CR-0130','CSC generic cmds'] + m2Cmds, ['m2_controller', 'm2_cRio'], implemented='Vendor')
 #
 # ECS (Environment Control System)
 #
@@ -88,17 +91,20 @@ if __name__ == "__main__":
 #
 # EMCS (environmental monitor control system)
 #
-    dot=bcsc.addHWCSC(dot, 'EMCS', 'environmental_monitoring_HW', ['XML repo: ?','Code repo:  ?','ICD: LSE-139','CSC generic cmds'], ['Seismic_Monitors','Anemometers','Visible_All-Sky Camera','Infrared_All-Sky Camera','DIMM','Weather_Station','GPS_Water_Vapor_Monitor'], implemented=False)
+    dot=bcsc.addHWCSC(dot, 'EMCS', 'environmental_monitoring_HW', ['XML repo: ?','Code repo:  ?','ICD: LSE-139','CSC generic cmds'], ['Seismic_Monitors','Anemometers','Visible_All-Sky Camera','Infrared_All-Sky Camera','Weather_Station','GPS_Water_Vapor_Monitor'], implemented=False)
+
+    dot=bcsc.addHWCSC(dot, 'DIMM', 'DIMM_HW', ['XML repo: ?','Code repo:  ?','ICD: LSE-139','CSC generic cmds'], ['DIMM_(Astelco)'], implemented=False)
 
 #
 # LOVE (LSST Operator Visuzlization Environment)
 #
-    dot=bcsc.addHWCSC(dot, 'LOVE', 'Visualization_HW', ['Vendor: INRIA','XML repo: ?','Code repo:  ?','ICD: ?', 'Req: LTS-807', 'CSC generic cmds'], ['Visualization Server', 'Displays'], implemented='DM')
+    dot=bcsc.addHWCSC(dot, 'LOVE', 'Visualization_HW', ['Vendor: INRIA','XML repo: ?','Code repo:  ?','ICD: ?', 'Req: LTS-807', 'CSC generic cmds'], ['Visualization Server', 'Displays'], implemented='Vendor')
 
 #
 # rotator
 #
-    dot=bcsc.addHWCSC(dot, 'Rotator', 'Rotator_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['Rotator'], implemented=False)
+    rotatorCmds=['Move', 'MoveConstantVelocty', 'Track', 'Stop', 'TrackStart', 'PositionSet', 'VelocitySet']
+    dot=bcsc.addHWCSC(dot, 'Rotator', 'Rotator_HW', ['Vendor: Moog','XML repo: ?','Code repo:  ?','ICD: LTS-160','CSC generic cmds'] + rotatorCmds, ['Rotator'], implemented='Vendor')
 #
 # AO Closed Loop Controller
 #
@@ -115,26 +121,26 @@ if __name__ == "__main__":
 #
 # headerService
 #
-    dot=bcsc.addCSC(dot, 'headerService', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atHeaderService','Code repo:  https://github.com/lsst-dm/HeaderService','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='DM')
+    dot=bcsc.addCSC(dot, 'headerService', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atHeaderService','Code repo:  https://github.com/lsst-dm/HeaderService','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='Vendor')
 
 #
 # archiver
 #
-    dot=bcsc.addHWCSC(dot, 'archiver', 'archiver_HW', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], ['Archiver_CCS_Bridge','Data Processor'], implemented='DM')
+    dot=bcsc.addHWCSC(dot, 'archiver', 'archiver_HW', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], ['Archiver_CCS_Bridge','Data Processor'], implemented='Vendor')
 
 #
 # catchupArchiver
 #
-    dot=bcsc.addCSC(dot, 'catchupArchiver', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='DM')
+    dot=bcsc.addCSC(dot, 'catchupArchiver', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='Vendor')
 #
 # OCS_DrivenBatch
 #
-    dot=bcsc.addHWCSC(dot, 'OCS_DrivenBatch', 'DataBackbone', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], ['DM_Data_Backbone'], implemented='DM')
+    dot=bcsc.addHWCSC(dot, 'OCS_DrivenBatch', 'DataBackbone', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], ['DM_Data_Backbone'], implemented='Vendor')
 
 #
 # EFD_TransformationService
 #
-    dot=bcsc.addCSC(dot, 'EFD_TransformationService', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], implemented='DM')
+    dot=bcsc.addCSC(dot, 'EFD_TransformationService', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], implemented='Vendor')
 
 #
 # CCS
@@ -149,7 +155,7 @@ if __name__ == "__main__":
 #
 # PointingComponent
 #
-    dot=bcsc.addCSC(dot, 'PointingComponent', ['Vendor:Observatory_Sciences_Ltd','XML repo:?', 'Code repo: ?','ICD: https://ls.st/LTS-583?','Requirements, not ICD?','Language: ?','CSC generic cmds','trackTarget','startTracking','stopTracking','cmds from LTS-583?'], implemented='DM')
+    dot=bcsc.addCSC(dot, 'PointingComponent', ['Vendor:Observatory_Sciences_Ltd','XML repo:?', 'Code repo: ?','ICD: https://ls.st/LTS-583?','Requirements, not ICD?','Language: ?','CSC generic cmds','trackTarget','startTracking','stopTracking','cmds from LTS-583?'], implemented='Vendor')
     
 #
 # camera
@@ -173,7 +179,7 @@ if __name__ == "__main__":
 #
 # EFD-Science Platform
 #
-    dot=bcsc.addCSC(dot, 'EFD_SciencePlatform', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: ?', 'Proposal: https://dmtn-082.lsst.io'], implemented='DM')
+    dot=bcsc.addCSC(dot, 'EFD_SciencePlatform', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: ?', 'Proposal: https://dmtn-082.lsst.io'], implemented='Vendor')
 
 #
 # legend
@@ -225,6 +231,8 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'tcsWEP', 'IOTA_HW', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'archiver_HW', 'DAQ', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'CCS', 'DAQ', attrs='penwidth="3"')
+
+    dot=bcsc.connectCSCs(dot, 'EMCS', 'DIMM')
 
     dot=bcsc.connectCSCs(dot, 'dome', 'domeADB')
     dot=bcsc.connectCSCs(dot, 'dome', 'domeMONCS')
