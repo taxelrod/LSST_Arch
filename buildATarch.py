@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     outFileName = sys.argv[1]
     
-    dot=bcsc.startDot('Auxiliary\ Telescope\ Architecture\ V4\ Sep\ 4,\ 2018')
+    dot=bcsc.startDot('Auxiliary\ Telescope\ Architecture\ V5\ Oct\ 11,\ 2018')
 #
 # atspectrograph
 #
@@ -51,8 +51,8 @@ if __name__ == "__main__":
 #
 # atM2_Hexapod
 #
-    dot=bcsc.addHWCSC(dot, 'atM2_Hexapod', 'atM2_Hexapod_HW', ['XML repo: ?','Code repo: https://github.com/lsst-ts/ts_atm2hexapod','ICD: ?', 'CSC generic cmds'], ['M2 Hexapod'], implemented=False)
-    
+    hexCmds=['Move', 'MoveLUT', 'Pivot', 'Offset', 'Stop', 'PositionSet', 'ConfigureLimits', 'ConfigureVelocity', 'ConfigureAcceleration', 'ConfigureElevationRawLUT', 'ConfigureAzimuthRawLUT', 'ConfigureTemperatureRawLUT']
+    dot=bcsc.addHWCSC(dot, 'atM2_Hexapod', 'atM2_Hexapod_HW', ['Vendor: Moog', 'XML repo: ?','Code repo: https://github.com/lsst-ts/ts_atm2hexapod','ICD: LTS-160', 'CSC generic cmds'] + hexCmds, ['M2 Hexapod', 'Camera Hexapod'], implemented='Vendor')    
 #
 # atDome
 #
@@ -66,12 +66,12 @@ if __name__ == "__main__":
 #
 # atHeaderService
 #
-    dot=bcsc.addCSC(dot, 'atHeaderService', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atHeaderService','Code repo:  https://github.com/lsst-dm/HeaderService','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='DM')
+    dot=bcsc.addCSC(dot, 'atHeaderService', ['Vendor: DM','XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atHeaderService','Code repo:  https://github.com/lsst-dm/HeaderService','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='Vendor')
 
 #
 # atArchiver
 #
-    dot=bcsc.addHWCSC(dot, 'atArchiver', 'atArchiver_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], ['Archiver_CCS_Bridge','Data Processor'], implemented='DM')
+    dot=bcsc.addHWCSC(dot, 'atArchiver', 'atArchiver_HW', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], ['Archiver_CCS_Bridge','Data Processor'], implemented='Vendor')
 
 #
 # atCCS
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 #
 # atPointingComponent
 #
-    dot=bcsc.addCSC(dot, 'atPointingComponent', ['Vendor: Observatory_Sciences_Ltd','XML repo:?', 'Code repo: ?','ICD: https://ls.st/LTS-583?','Requirements, not ICD?','Language: ?','CSC generic cmds','trackTarget','startTracking','stopTracking','cmds from LTS-583?'], implemented='DM')
+    dot=bcsc.addCSC(dot, 'atPointingComponent', ['Vendor: Observatory_Sciences_Ltd','XML repo:?', 'Code repo: ?','ICD: https://ls.st/LTS-583?','Requirements, not ICD?','Language: ?','CSC generic cmds','trackTarget','startTracking','stopTracking','cmds from LTS-583?'], implemented='Vendor')
     
 #
 # atAOS
