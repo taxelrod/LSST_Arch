@@ -12,7 +12,7 @@ if __name__ == "__main__":
 #
 # MTMount
 #
-    MCS_cmds = ['moveToTarget','trackTarget', 'enableCamWrap', 'disableCamWrap', 'openMirrorCover', 'closeMirrorCover', 'stopMount']
+    MCS_cmds = ['moveToTarget','trackTarget', 'enableCamWrap', 'disableCamWrap', 'openMirrorCover', 'closeMirrorCover', 'stopMount', 'clearerror']
     dot=bcsc.addHWCSC(dot, 'MTMount', 'MCS_HW', ['Vendor: Tekniker', 'XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtMCS', 'Code repo:  ?','ICD:  https://ls.st/LTS-159?', 'CSC generic cmds'] + MCS_cmds, ['MCS'], implemented='Vendor')
     
 #

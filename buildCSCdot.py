@@ -41,7 +41,7 @@ def addHWCSC(dotString, CSCname, HWname, CmdList, HWList, implemented=True):
 
     if implemented==True:
         color = 'green'
-    elif implemented=='DM':
+    elif implemented=='Vendor':
         color = 'purple'
     elif implemented=='IP':
         color = 'yellow'
@@ -95,7 +95,7 @@ def addCSC(dotString, CSCname,  CmdList, implemented=True):
         color = 'green'
     elif implemented=='IP':
         color = 'yellow'
-    elif implemented=='DM':
+    elif implemented=='Vendor':
         color = 'purple'
     else:
         color = 'salmon'
@@ -114,6 +114,9 @@ def addCSC(dotString, CSCname,  CmdList, implemented=True):
 
     return dotString + CSCtable
 
+
+# Need to add some smarts here - make connector attributes dependent on whether the CSC has hardware or not
+# No easy way to do this without instantiating CSC as a class
 
 def connectCSCs(dotString, CSCname1, CSCname2, attrs=None):
     if attrs:
