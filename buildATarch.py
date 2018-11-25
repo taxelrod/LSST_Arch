@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     outFileName = sys.argv[1]
     
-    dot=bcsc.startDot('Auxiliary\ Telescope\ Architecture\ V5.1\ Nov\ 10,\ 2018')
+    dot=bcsc.startDot('Auxiliary\ Telescope\ Architecture\ V5.2\ Nov\ 25,\ 2018')
 #
 # ATSpectrograph
 #
@@ -26,12 +26,12 @@ if __name__ == "__main__":
 #
 # ATWhiteLight
 #
-    dot=bcsc.addHWCSC(dot, 'ATWhiteLight', 'ATWhiteLight_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atWhiteLight','Code repo:  ?','ICD: ?','CSC generic cmds', 'powerLightOn', 'powerLightOff', 'setLightPower'], ['White LIght Source'], implemented=False)
+    dot=bcsc.addHWCSC(dot, 'ATWhiteLightSource', 'ATWhiteLight_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atWhiteLight','Code repo:  ?','ICD: ?','CSC generic cmds', 'powerLightOn', 'powerLightOff', 'setLightPower'], ['White LIght Source'], implemented='IP')
     
 #
-# ATThermoelectricCooler
+# ATWhiteLightChiller
 #
-    dot=bcsc.addHWCSC(dot, 'ATThermoelectricCooler', 'ATThermoelectricCooler_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/blob/feture/AuxTelCSCs/sal_interfaces/ATThermoelectricCooler','Code repo: https://github.com/lsst-ts/ss_atCooler','ICD: ?','CSC generic cmds', 'setTemperature', 'powerChillerOn', 'powerChillerOff'], ['White LIght Chiller'], implemented=False)
+    dot=bcsc.addHWCSC(dot, 'ATWhiteLightChiller', 'ATWhiteLightChiller_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/blob/feture/AuxTelCSCs/sal_interfaces/ATWhiteLightChiller','Code repo: https://github.com/lsst-ts/ss_atCooler','ICD: ?','CSC generic cmds', 'setTemperature', 'powerChillerOn', 'powerChillerOff'], ['White LIght Chiller'], implemented='IP')
     
 #
 # Electrometer
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 #
 # ATDome
 #
-    dot=bcsc.addHWCSC(dot, 'ATDome', 'ATDome_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtDome','Code repo:  ?','ICD: https://ls.st/LTS-158?', 'ICD_differs_for_AT??','CSC generic cmds', 'stopMotionAllAxis', 'moveAzimuth', 'startTracking', 'stopTracking', 'moveShutterDropoutDoor','moveShutterMainDoor','closeShutter', 'openShutter', 'stopShutter'], ['dome cRIO', 'azimuth cRIO'], implemented=False)
+    dot=bcsc.addHWCSC(dot, 'ATDome', 'ATDome_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtDome','Code repo:  ?','ICD: https://ls.st/LTS-158?', 'ICD_differs_for_AT??','CSC generic cmds', 'stopMotionAllAxis', 'moveAzimuth', 'startTracking', 'stopTracking', 'moveShutterDropoutDoor','moveShutterMainDoor','closeShutter', 'openShutter', 'stopShutter'], ['dome cRIO', 'azimuth cRIO'], implemented='IP')
 
 #
 # atBuilding
@@ -125,8 +125,8 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'ATTCS',  'ATSpectrograph' )
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'atFiberSpectrometer')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATMonochromator')
-    dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATWhiteLight')
-    dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATThermoelectricCooler')
+    dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATWhiteLightSource')
+    dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATWhiteLightChiller')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'Electrometer')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATPointingComponent')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATMCS')

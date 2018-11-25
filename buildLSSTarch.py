@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     outFileName = sys.argv[1]
     
-    dot=bcsc.startDot('Main\ Telescope\ Architecture\ V2.1\ Nov\ 10,\ 2018')
+    dot=bcsc.startDot('Main\ Telescope\ Architecture\ V2.2\ Nov\ 25,\ 2018')
 
 #
 # MTMount
@@ -69,12 +69,10 @@ if __name__ == "__main__":
 
     dot=bcsc.addHWCSC(dot, 'WhiteLightSource', 'WhiteLightSource_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['WhiteLightSource'], implemented=False)
     
-    dot=bcsc.addHWCSC(dot, 'PhotoDiodes', 'PhotoDiodes_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['PhotoDiodes'], implemented=False)
+    dot=bcsc.addHWCSC(dot, 'Electrometer', 'PhotoDiodes_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['PhotoDiodes'], implemented=True)
     
     dot=bcsc.addHWCSC(dot, 'SEDSpectrograph', 'SEDSpectrograph_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['SEDSpectrograph'], implemented=False)
 
-    dot=bcsc.addHWCSC(dot, 'CalibrationScreen', 'CalibrationScreen_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['CalibrationScreen'], implemented=False)
-    
     dot=bcsc.addHWCSC(dot, 'CBP', 'CBP_HW', ['XML repo: ?','Code repo:  ?','ICD: ?','CSC generic cmds'], ['Collimated Beam Projector'], implemented=False)
     
 
@@ -95,10 +93,6 @@ if __name__ == "__main__":
 
     dot=bcsc.addHWCSC(dot, 'DIMM', 'DIMM_HW', ['XML repo: ?','Code repo:  ?','ICD: LSE-139','CSC generic cmds'], ['DIMM_(Astelco)'], implemented=False)
 
-#
-# LOVE (LSST Operator Visuzlization Environment)
-#
-    dot=bcsc.addHWCSC(dot, 'LOVE', 'Visualization_HW', ['Vendor: INRIA','XML repo: ?','Code repo:  ?','ICD: ?', 'Req: LTS-807', 'CSC generic cmds'], ['Visualization Server', 'Displays'], implemented='Vendor')
 
 #
 # Rotator
@@ -150,7 +144,7 @@ if __name__ == "__main__":
 #
 # MTTCS
 #
-    dot=bcsc.addCSC(dot, 'MTTCS', ['XML repo: atcs', 'Code repo: https://github.com/lsst-ts/ts_atcs','ICD: https://ls.st/LSE-73?','ICD_differs_for_AT??','Language: LabView','CSC generic cmds', 'Target', 'Offset', 'SpectrographSetup'], implemented=False)
+    dot=bcsc.addCSC(dot, 'MTTCS', ['XML repo: atcs', 'Code repo: https://github.com/lsst-ts/ts_atcs','ICD: https://ls.st/LSE-73?','ICD_differs_for_AT??','Language: LabView','CSC generic cmds', 'Target', 'stopMotion', 'filterChangeRequest', 'wfpCalculate', 'wfpSimulate'], implemented=False)
     
 #
 # MTPointingComponent
@@ -177,11 +171,6 @@ if __name__ == "__main__":
 #
     dot=bcsc.addCSC(dot, 'Scheduler', ['XML repo: ?', 'Code repo: https://github.com/lsst-ts/ts_scheduler','ICD: ?', 'CSC generic cmds'], implemented=True)
 #
-# EFD-Science Platform
-#
-    dot=bcsc.addCSC(dot, 'EFD_SciencePlatform', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: ?', 'Proposal: https://dmtn-082.lsst.io'], implemented='Vendor')
-
-#
 # legend
 #
     dot=bcsc.addCSC(dot, 'LEGEND', ['Boxes with thin edges are CSCs','Boxes with thick edges are hardware', 'CSCs communicate only through SAL', 'A green title box means \"TS responsibility - significant functional capability\"', 'A yellow title box means \"TS responsibility - in progress\"', 'A red title box means \"TS responsibility - design phase\"', 'A purple title box means \"Vendor responsibility - significant functional capability\"', 'An orange entry is flagged as missing or questionable', 'A grey box is hardware', 'CSC generic commands are: abort, disable, enable, enterControl, exitControl, setValue, standby, start, stop'])
@@ -204,15 +193,14 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'MTOFC',  'MTM2' )
     dot=bcsc.connectCSCs(dot, 'CalCS', 'TunableLaser')
     dot=bcsc.connectCSCs(dot, 'CalCS', 'WhiteLightSource')
-    dot=bcsc.connectCSCs(dot, 'CalCS', 'PhotoDiodes')
+    dot=bcsc.connectCSCs(dot, 'CalCS', 'Electrometer')
     dot=bcsc.connectCSCs(dot, 'CalCS', 'SEDSpectrograph')
-    dot=bcsc.connectCSCs(dot, 'CalCS', 'CalibrationScreen')
     dot=bcsc.connectCSCs(dot, 'CalCS', 'CBP')
     dot=bcsc.connectCSCs(dot, 'AOCLC', 'MTWEP')
     dot=bcsc.connectCSCs(dot, 'AOCLC', 'MTOFC')
     dot=bcsc.connectCSCs(dot, 'MTPointingComponent', 'MTMount')
     dot=bcsc.connectCSCs(dot, 'MTPointingComponent', 'Rotator')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'TCS')
+    dot=bcsc.connectCSCs(dot, 'OCS', 'MTTCS')
     dot=bcsc.connectCSCs(dot, 'OCS', 'Scheduler')
     dot=bcsc.connectCSCs(dot, 'OCS', 'MTHeaderService')
     dot=bcsc.connectCSCs(dot, 'OCS', 'MTArchiver')
@@ -221,7 +209,6 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'OCS',  'CalCS' )
     dot=bcsc.connectCSCs(dot, 'OCS',  'EEC' )
     dot=bcsc.connectCSCs(dot, 'OCS',  'EMCS' )
-    dot=bcsc.connectCSCs(dot, 'OCS',  'LOVE' )
     dot=bcsc.connectCSCs(dot, 'OCS',  'OCS_DrivenBatch' )
     dot=bcsc.connectCSCs(dot, 'OCS',  'EFD_TransformationService' )
     dot=bcsc.connectCSCs(dot, 'EFD_TransformationService', 'DataBackbone', attrs='penwidth="3"')
@@ -246,7 +233,7 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'DomeTHCS', 'Dome_FixedHW', attrs='penwidth="3"')
 
     dot=bcsc.connectCSCs(dot, 'LEGEND', 'OCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
-    dot=bcsc.connectCSCs(dot, 'LEGEND', 'TCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
+    dot=bcsc.connectCSCs(dot, 'LEGEND', 'MTTCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
 
     dot=bcsc.finishDot(dot)
     f=open(outFileName,'w')
