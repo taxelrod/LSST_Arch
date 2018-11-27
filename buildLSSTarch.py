@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     outFileName = sys.argv[1]
     
-    dot=bcsc.startDot('Main\ Telescope\ Architecture\ V2.2\ Nov\ 25,\ 2018')
+    dot=bcsc.startDot('Main\ Telescope\ Architecture\ V3.0\ Nov\ 25,\ 2018')
 
 #
 # MTMount
@@ -127,9 +127,9 @@ if __name__ == "__main__":
 #
     dot=bcsc.addCSC(dot, 'CatchupArchiver', ['Vendor: DM', 'XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/atArchiver', 'Code repo: https://github.com/lsst/ctrl_iip','ICD: https://ls.st/LSE-72','CSC generic cmds'], implemented='Vendor')
 #
-# OCS_DrivenBatch
+# Script_DrivenBatch
 #
-    dot=bcsc.addHWCSC(dot, 'OCS_DrivenBatch', 'DataBackbone', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], ['DM_Data_Backbone'], implemented='Vendor')
+    dot=bcsc.addHWCSC(dot, 'ScriptDrivenBatch', 'DataBackbone', ['Vendor: DM', 'XML repo: ?', 'Code repo: ?','ICD: https://ls.st/LDM-230','CSC generic cmds'], ['DM_Data_Backbone'], implemented='Vendor')
 
 #
 # EFD_TransformationService
@@ -162,9 +162,19 @@ if __name__ == "__main__":
     dot=bcsc.addHWCSC(dot, 'CCS_OCS_Bridge', 'CCS', ['XML repo: ?','Code repo: ?','ICD: ?','cmds??'], ['CCS'], implemented=True)
 
 #
-# OCS
+# ScriptQueue
 #
-    dot=bcsc.addCSC(dot, 'OCS', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/ocs', 'Code repo: https://github.com/lsst-ts/ts_ocs_executive','ICD: https://ls.st/LSE-71','Language: java','CSC generic cmds','sequence', 'script'], implemented='IP')
+    dot=bcsc.addCSC(dot, 'ScriptQueue', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/ScriptQueue', 'Code repo: https://github.com/lsst-ts/ts_scriptqueue','ICD: ?','Language: python','CSC generic cmds','showAvailableScripts', 'showQueue', 'pause', 'resume', 'add', 'move', 'requeue', 'stopScripts'], implemented=True)
+
+#
+# Script
+#
+    dot=bcsc.addCSC(dot, 'Script', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/Script', 'Code repo: varies','ICD: ?','Language: python','CSC generic cmds', 'configure', 'run', 'resume', 'setLogging', 'setCheckpoints', 'stop'], implemented=True)
+
+#
+# Watcher
+#
+    dot=bcsc.addCSC(dot, 'Watcher', ['XML repo: ?', 'Code repo: ?','ICD: ?','Language: python','CSC generic cmds'], implemented=False)
 
 #
 # Scheduler
@@ -187,6 +197,7 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'Guider' )
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'MTM1M3' )
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'DomeTrajectory' )
+    dot=bcsc.connectCSCs(dot, 'MTTCS',  'Watcher' )
     dot=bcsc.connectCSCs(dot, 'DomeTrajectory', 'Dome' )
     dot=bcsc.connectCSCs(dot, 'MTOFC',  'Hexapod' )
     dot=bcsc.connectCSCs(dot, 'MTOFC',  'MTM1M3' )
@@ -200,17 +211,19 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'AOCLC', 'MTOFC')
     dot=bcsc.connectCSCs(dot, 'MTPointingComponent', 'MTMount')
     dot=bcsc.connectCSCs(dot, 'MTPointingComponent', 'Rotator')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'MTTCS')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'Scheduler')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'MTHeaderService')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'MTArchiver')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'CatchupArchiver')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'MTCamera')
-    dot=bcsc.connectCSCs(dot, 'OCS',  'CalCS' )
-    dot=bcsc.connectCSCs(dot, 'OCS',  'EEC' )
-    dot=bcsc.connectCSCs(dot, 'OCS',  'EMCS' )
-    dot=bcsc.connectCSCs(dot, 'OCS',  'OCS_DrivenBatch' )
-    dot=bcsc.connectCSCs(dot, 'OCS',  'EFD_TransformationService' )
+    dot=bcsc.connectCSCs(dot, 'ScriptQueue', 'Scheduler')
+    dot=bcsc.connectCSCs(dot, 'ScriptQueue', 'ScriptDrivenBatch')
+    dot=bcsc.connectCSCs(dot, 'ScriptQueue', 'Script')
+    dot=bcsc.connectCSCs(dot, 'Script', 'MTTCS')
+    dot=bcsc.connectCSCs(dot, 'Script', 'MTHeaderService')
+    dot=bcsc.connectCSCs(dot, 'Script', 'MTArchiver')
+    dot=bcsc.connectCSCs(dot, 'Script', 'CatchupArchiver')
+    dot=bcsc.connectCSCs(dot, 'Script', 'MTCamera')
+    dot=bcsc.connectCSCs(dot, 'Script',  'CalCS' )
+    dot=bcsc.connectCSCs(dot, 'Script',  'EEC' )
+    dot=bcsc.connectCSCs(dot, 'Script',  'EMCS' )
+    dot=bcsc.connectCSCs(dot, 'Script',  'OCS_DrivenBatch' )
+    dot=bcsc.connectCSCs(dot, 'Script',  'EFD_TransformationService' )
     dot=bcsc.connectCSCs(dot, 'EFD_TransformationService', 'DataBackbone', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'CatchupArchiver', 'MTArchiver_HW', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'MTCamera', 'CCS_OCS_Bridge')
@@ -232,7 +245,7 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'DomeLouvers', 'Dome_RotatingHW', attrs='penwidth="3"')
     dot=bcsc.connectCSCs(dot, 'DomeTHCS', 'Dome_FixedHW', attrs='penwidth="3"')
 
-    dot=bcsc.connectCSCs(dot, 'LEGEND', 'OCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
+    dot=bcsc.connectCSCs(dot, 'LEGEND', 'ScriptQueue', attrs='penwidth=\"0\", arrowhead=\"none\"')
     dot=bcsc.connectCSCs(dot, 'LEGEND', 'MTTCS', attrs='penwidth=\"0\", arrowhead=\"none\"')
 
     dot=bcsc.finishDot(dot)
