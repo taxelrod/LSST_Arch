@@ -190,6 +190,7 @@ if __name__ == "__main__":
 #
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'AOCLC' )
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'IOTA' )
+    dot=bcsc.connectCSCs(dot, 'MTTCS',  'MTMount' )
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'MTPointingComponent' )
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'Hexapod' )
     dot=bcsc.connectCSCs(dot, 'MTTCS',  'Dome' )
@@ -220,8 +221,8 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'Script', 'CatchupArchiver')
     dot=bcsc.connectCSCs(dot, 'Script', 'MTCamera')
     dot=bcsc.connectCSCs(dot, 'Script',  'CalCS' )
-    dot=bcsc.connectCSCs(dot, 'Script',  'EEC' )
-    dot=bcsc.connectCSCs(dot, 'Script',  'EMCS' )
+    dot=bcsc.connectCSCs(dot, 'MTTCS',  'EEC' )
+    dot=bcsc.connectCSCs(dot, 'MTTCS',  'EMCS' )
     dot=bcsc.connectCSCs(dot, 'Script',  'OCS_DrivenBatch' )
     dot=bcsc.connectCSCs(dot, 'Script',  'EFD_TransformationService' )
     dot=bcsc.connectCSCs(dot, 'EFD_TransformationService', 'DataBackbone', attrs='penwidth="3"')

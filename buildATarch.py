@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     outFileName = sys.argv[1]
     
-    dot=bcsc.startDot('Auxiliary\ Telescope\ Architecture\ V5.2\ Nov\ 25,\ 2018')
+    dot=bcsc.startDot('Auxiliary\ Telescope\ Architecture\ V6.0\ Dec\ 4,\ 2018')
 #
 # ATSpectrograph
 #
@@ -41,18 +41,18 @@ if __name__ == "__main__":
 #
 # ATMCS
 #
-    dot=bcsc.addHWCSC(dot, 'ATMCS', 'atMount_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtMCS', 'Code repo:  ?','ICD:  https://ls.st/LTS-159?',  'ICD_differs_for_AT??', 'CSC generic cmds' ,'startTracking', 'trackTarget', 'stopTracking', 'setInstrumentPort'], ['mount cRIO','Drive Electronics (vendor)', 'rotator cRIO','Electronics for two rotator drives(vendor)' , 'M3 cRIO'], implemented=False)
+    dot=bcsc.addHWCSC(dot, 'ATMCS', 'atMount_HW', ['Vendor: ?', 'XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtMCS', 'Code repo:  ?','ICD:  https://ls.st/LTS-159?',  'ICD_differs_for_AT??', 'CSC generic cmds' ,'startTracking', 'trackTarget', 'stopTracking', 'setInstrumentPort'], ['mount cRIO','Drive Electronics (vendor)', 'rotator cRIO','Electronics for two rotator drives(vendor)' , 'M3 cRIO'], implemented='Vendor')
     
 #
 # ATPneumatics
 #
-    dot=bcsc.addHWCSC(dot, 'ATPneumatics', 'ATPneumatics_HW', ['XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtPneumatics','Code repo:  ?','ICD: ?', 'CSC generic cmds','m1SetPressure', 'm1OpenAirValve', 'm1CloseAirValve', 'openM1CellVents', 'closeM1CellVents', 'openM1Cover', 'closeM1Cover', 'm2SetPressure', 'm2OpenAirValve', 'm2CloseAirValve', 'openInstrumentAirValve', 'closeInstrumentAirValve', 'closeMasterAirSupply', 'openMasterAirSupply'], ['M1 Pneumatics', 'M1 Cover', 'M1 Cell Vents', 'M2_pneumatics'], implemented=False)
+    dot=bcsc.addHWCSC(dot, 'ATPneumatics', 'ATPneumatics_HW', ['Vendor: ?','XML repo: https://github.com/lsst-ts/ts_xml/tree/feture/AuxTelCSCs/sal_interfaces/AtPneumatics','Code repo:  ?','ICD: ?', 'CSC generic cmds','m1SetPressure', 'm1OpenAirValve', 'm1CloseAirValve', 'openM1CellVents', 'closeM1CellVents', 'openM1Cover', 'closeM1Cover', 'm2SetPressure', 'm2OpenAirValve', 'm2CloseAirValve', 'openInstrumentAirValve', 'closeInstrumentAirValve', 'closeMasterAirSupply', 'openMasterAirSupply'], ['M1 Pneumatics', 'M1 Cover', 'M1 Cell Vents', 'M2_pneumatics'], implemented='Vendor')
     
 #
 # Hexapod
 #
     hexCmds=['Move', 'MoveLUT', 'Pivot', 'Offset', 'Stop', 'PositionSet', 'ConfigureLimits', 'ConfigureVelocity', 'ConfigureAcceleration', 'ConfigureElevationRawLUT', 'ConfigureAzimuthRawLUT', 'ConfigureTemperatureRawLUT']
-    dot=bcsc.addHWCSC(dot, 'Hexapod', 'atM2_Hexapod_HW', ['Vendor: Moog', 'XML repo: ?','Code repo: https://github.com/lsst-ts/ts_atm2hexapod','ICD: LTS-160', 'CSC generic cmds'] + hexCmds, ['M2 Hexapod', 'Camera Hexapod'], implemented='Vendor')    
+    dot=bcsc.addHWCSC(dot, 'ATHexapod', 'atM2_Hexapod_HW', ['Vendor: Moog', 'XML repo: ?','Code repo: https://github.com/lsst-ts/ts_atm2hexapod','ICD: LTS-160', 'CSC generic cmds'] + hexCmds, ['M2 Hexapod', 'Camera Hexapod'], implemented='IP')    
 
 #
 # ATDome
@@ -92,7 +92,7 @@ if __name__ == "__main__":
 #
 # atAOS
 #
-    dot=bcsc.addCSC(dot, 'atAOS', ['XML repo:?', 'Code repo: ?','ICD: ?','Language: ?','CSC generic cmds'], implemented=False)
+    dot=bcsc.addCSC(dot, 'atAOS', ['XML repo:?', 'Code repo: ?','ICD: ?','Language: ?','CSC generic cmds'], implemented='IP')
     
 #
 # ATCamera
@@ -105,9 +105,14 @@ if __name__ == "__main__":
     dot=bcsc.addHWCSC(dot, 'CCS_OCS_Bridge', 'atCCS', ['XML repo: ?','Code repo: ?','ICD: ?','cmds??'], ['atCCS'], implemented=True)
 
 #
-# OCS
+# ScriptQueue
 #
-    dot=bcsc.addCSC(dot, 'OCS', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/ocs', 'Code repo: https://github.com/lsst-ts/ts_ocs_executive','ICD: https://ls.st/LSE-71','ICD: ?','Language: java','CSC generic cmds','sequence', 'script'], implemented='IP')
+    dot=bcsc.addCSC(dot, 'ScriptQueue', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/ScriptQueue', 'Code repo: https://github.com/lsst-ts/ts_scriptqueue','ICD: ?','Language: python','CSC generic cmds','showAvailableScripts', 'showQueue', 'pause', 'resume', 'add', 'move', 'requeue', 'stopScripts'], implemented=True)
+
+#
+# Script
+#
+    dot=bcsc.addCSC(dot, 'Script', ['XML repo: https://github.com/lsst-ts/ts_xml/sal_interfaces/Script', 'Code repo: varies','ICD: ?','Language: python','CSC generic cmds', 'configure', 'run', 'resume', 'setLogging', 'setCheckpoints', 'stop'], implemented=True)
 
 #
 # atScheduler
@@ -131,21 +136,22 @@ if __name__ == "__main__":
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATPointingComponent')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATMCS')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'atAOS')
-    dot=bcsc.connectCSCs(dot, 'atAOS', 'Hexapod')
+    dot=bcsc.connectCSCs(dot, 'atAOS', 'ATHexapod')
     dot=bcsc.connectCSCs(dot, 'atAOS', 'ATPneumatics')
     dot=bcsc.connectCSCs(dot, 'ATPointingComponent', 'ATMCS')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATPneumatics')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'Hexapod')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'ATDome')
     dot=bcsc.connectCSCs(dot, 'ATTCS', 'atBuilding')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'ATTCS')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'atScheduler')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'ATHeaderService')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'ATArchiver')
-    dot=bcsc.connectCSCs(dot, 'OCS', 'ATCamera')
+    dot=bcsc.connectCSCs(dot, 'ScriptQueue', 'atScheduler')
+    dot=bcsc.connectCSCs(dot, 'ScriptQueue', 'Script')
+    dot=bcsc.connectCSCs(dot, 'Script', 'ATTCS')
+    dot=bcsc.connectCSCs(dot, 'Script', 'ATHeaderService')
+    dot=bcsc.connectCSCs(dot, 'Script', 'ATArchiver')
+    dot=bcsc.connectCSCs(dot, 'Script', 'ATCamera')
     dot=bcsc.connectCSCs(dot, 'ATCamera', 'CCS_OCS_Bridge')
 
-    dot=bcsc.connectCSCs(dot, 'LEGEND', 'OCS', 'penwidth=\"0\", arrowhead=\"none\"')
+    dot=bcsc.connectCSCs(dot, 'LEGEND', 'ScriptQueue', 'penwidth=\"0\", arrowhead=\"none\"')
     dot=bcsc.connectCSCs(dot, 'LEGEND', 'ATTCS', 'penwidth=\"0\", arrowhead=\"none\"')
 
     dot=bcsc.finishDot(dot)
